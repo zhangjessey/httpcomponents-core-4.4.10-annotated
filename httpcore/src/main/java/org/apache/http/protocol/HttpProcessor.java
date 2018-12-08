@@ -48,6 +48,15 @@ import org.apache.http.HttpResponseInterceptor;
  *
  * @since 4.0
  */
+
+/**
+ * HTTP协议处理器是一个协议拦截器的集合，实现了责任链模式，每个独立的协议拦截器都能够针对一个特殊的方面生效。
+ *
+ * 通常来说拦截器执行的顺序无所谓，只要它们不依赖 execution context的特殊状态。
+ * 如果协议拦截器有相互依赖，必须以特殊的顺序执行，它们应该按照期待执行的顺序添加到协议处理器。
+ *
+ * 协议拦截器必须是线程安全的。就像是servlets一样，协议拦截器不应该使用实例变量，除非它们访问这些变量是同步的。
+ */
 public interface HttpProcessor
     extends HttpRequestInterceptor, HttpResponseInterceptor {
 

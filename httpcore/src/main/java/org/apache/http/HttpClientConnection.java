@@ -35,6 +35,10 @@ import java.io.IOException;
  *
  * @since 4.0
  */
+
+/**
+ * 客户端HTTP连接，用作发送请求接收响应。
+ */
 public interface HttpClientConnection extends HttpConnection {
 
     /**

@@ -55,6 +55,14 @@ import org.apache.http.util.Args;
  *
  * @since 4.0
  */
+
+/**
+ * HttpRequestExecutor是一个客户端的HTTP协议处理器，基于阻塞（经典）I/O模型。
+ *
+ * HttpRequestExecutor依赖于HttpProcessor生成强制要有的协议header，为所有的出站消息，并且应用于所有入站出站的通用消息传输处理。
+ * 应用的特殊处理过程可以在HttpRequestExecutor外部实现，一旦请求被执行并且响应被接收。
+ *
+ */
 @Contract(threading = ThreadingBehavior.IMMUTABLE)
 public class HttpRequestExecutor {
 

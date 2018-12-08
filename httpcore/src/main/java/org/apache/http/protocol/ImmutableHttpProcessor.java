@@ -42,6 +42,10 @@ import org.apache.http.annotation.Contract;
  *
  * @since 4.1
  */
+
+/**
+ * 不可变的HttpProcessor
+ */
 @Contract(threading = ThreadingBehavior.IMMUTABLE_CONDITIONAL)
 public final class ImmutableHttpProcessor implements HttpProcessor {
 
