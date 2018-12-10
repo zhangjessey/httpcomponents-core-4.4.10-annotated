@@ -40,6 +40,10 @@ import org.apache.http.HttpMessage;
  *
  * @since 4.0
  */
+
+/**
+ * Abstract消息解析器可以从任意数据源构建HTTP消息。
+ */
 public interface HttpMessageParser<T extends HttpMessage> {
 
     /**

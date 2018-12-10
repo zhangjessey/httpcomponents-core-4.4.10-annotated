@@ -74,6 +74,10 @@ import org.apache.http.util.NetUtils;
  *
  * @since 4.0
  */
+
+/**
+ * 这个类作为所有HttpConnection实现的基础，并且同时为客户端和服务器端HTTP连接提供功能。
+ */
 public class BHttpConnectionBase implements HttpConnection, HttpInetConnection {
 
     private final SessionInputBufferImpl inbuffer;

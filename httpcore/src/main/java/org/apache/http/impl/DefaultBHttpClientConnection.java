@@ -56,6 +56,10 @@ import org.apache.http.util.Args;
  *
  * @since 4.3
  */
+
+/**
+ * HttpClientConnection的默认实现
+ */
 public class DefaultBHttpClientConnection extends BHttpConnectionBase
                                                    implements HttpClientConnection {
 

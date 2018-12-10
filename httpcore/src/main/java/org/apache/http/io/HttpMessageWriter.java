@@ -38,6 +38,10 @@ import org.apache.http.HttpMessage;
  *
  * @since 4.0
  */
+
+/**
+ * Abstract消息writer可以序列化HTTP消息到一个任意数据sink
+ */
 public interface HttpMessageWriter<T extends HttpMessage> {
 
     /**
