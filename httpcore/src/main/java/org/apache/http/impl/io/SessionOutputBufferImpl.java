@@ -53,6 +53,12 @@ import org.apache.http.util.CharArrayBuffer;
  *
  * @since 4.3
  */
+
+/**
+ * 来自任意OutputStream的流数据对应的会话输出buffers的抽象基类。为了最优的输出性能，这个类缓存输出数据的small chunks在一个内部的字节数组中。
+ *
+ * 这个类的writeLine(CharArrayBuffer)和writeLine(String)方法用 CR-LF 作为行分隔符。
+ */
 public class SessionOutputBufferImpl implements SessionOutputBuffer, BufferInfo {
 
     private static final byte[] CRLF = new byte[] {HTTP.CR, HTTP.LF};

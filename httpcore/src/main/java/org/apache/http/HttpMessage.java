@@ -54,6 +54,13 @@ import org.apache.http.params.HttpParams;
  * @since 4.0
  */
 @SuppressWarnings("deprecation")
+/**
+ * HTTP消息由客户端到服务端的请求与服务端到客户端的响应组成。
+ *
+ * HTTP消息使用 RFC 822的泛型消息格式来传输实体（消息的payload）。消息由各种类型组成，start-line，
+ * 零个或者多个header字段（所谓的headers）,一个空行（比如,一行只有回车换行符）指明了header字段们的结束，也可能是消息体。
+ *
+ */
 public interface HttpMessage {
 
     /**

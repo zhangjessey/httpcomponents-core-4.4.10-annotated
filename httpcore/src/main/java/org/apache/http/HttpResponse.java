@@ -43,6 +43,10 @@ import java.util.Locale;
  *
  * @since 4.0
  */
+
+/**
+ * 在接收并且解释一个request message之后，一个带有HTTP响应消息的服务器端响应。
+ */
 public interface HttpResponse extends HttpMessage {
 
     /**

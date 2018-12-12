@@ -56,6 +56,12 @@ import org.apache.http.util.CharArrayBuffer;
  *
  * @since 4.3
  */
+
+/**
+ * 来自任意InputStream的流数据对应的会话输入buffers的抽象基类。为了最优的输入性能，这个类缓存输入数据在一个内部的字节数组中。
+ *
+ * 这个类的readLine(CharArrayBuffer)和readLine()方法把一个lone LF当做有效的换行符，这也是为了HTTP规范里回车换行符的需要。
+ */
 public class SessionInputBufferImpl implements SessionInputBuffer, BufferInfo {
 
     private final HttpTransportMetricsImpl metrics;
