@@ -62,6 +62,26 @@ import java.io.OutputStream;
  *
  * @since 4.0
  */
+
+/**
+ * 一个可以发送或者接收HTTP消息的实体。
+ * 实体可以存在于HttpEntityEnclosingRequest，HttpResponse，在里面它们是可选的。
+ *
+ * 在HttpCore里有三种不同的实体类型，这取决于它们的getContent对应的content的起源:
+ *
+ * Streamed：content接收于一个stream或者被高速写入生成。特别的，此种类型包含接收自HttpConnection
+ *
+ * 的实体。Streamed实体通常是不可重复的。
+ *
+ * self-contained：content在内存里或者是可被获得的，意味着它们是独立于连接或者其他实体。self-contained
+ * 实体通常是可重复的。
+ *
+ * wrapping：content从其他实体中获得。
+ *
+ * 这种区别对于传入实体的连接管理很重要。 对于由应用程序创建且仅使用HTTP component框架发送的实体，streamed和 self-contained的区别并不重要。
+ * 这种情况下，建议考虑将不可重复的实体作为streamed，那些可重复的（不需要巨大代价的）作为self-contained。
+ *
+ */
 public interface HttpEntity {
 
     /**
