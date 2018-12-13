@@ -39,6 +39,10 @@ import org.apache.http.concurrent.FutureCallback;
  * @param <E> the type of the pool entry containing a pooled connection.
  * @since 4.2
  */
+
+/**
+ * ConnPool代表共享的池连接们，可以被租借出去也可以被释放回来。
+ */
 public interface ConnPool<T, E> {
 
     /**

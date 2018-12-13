@@ -48,6 +48,11 @@ import org.apache.http.pool.ConnFactory;
  * @see HttpHost
  * @since 4.2
  */
+
+/**
+ * 一个非常基本的ConnPool的实现，代表了一个阻塞{@link HttpClientConnection} 连接池，这些链接
+ * 被HttpHost实例标识。注意：此池实现并不支持经过代理的复杂路由，不能区分直接连接与代理连接。
+ */
 @SuppressWarnings("deprecation")
 @Contract(threading = ThreadingBehavior.SAFE_CONDITIONAL)
 public class BasicConnPool extends AbstractConnPool<HttpHost, HttpClientConnection, BasicPoolEntry> {

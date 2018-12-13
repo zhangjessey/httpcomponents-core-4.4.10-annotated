@@ -35,6 +35,10 @@ package org.apache.http.pool;
  *   connection.
  * @since 4.2
  */
+
+/**
+ * 控制ConnPool的运行时属性的接口，比如连接的最大数量，或者每个路由的最大连接数。
+ */
 public interface ConnPoolControl<T> {
 
     void setMaxTotal(int max);

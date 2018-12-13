@@ -48,6 +48,14 @@ import java.util.concurrent.TimeUnit;
  * @param <C> the connection type.
  * @since 4.2
  */
+
+/**
+ * Pool entry，包含一个池连接对象以及其关联的路由。
+ *
+ * Pool entry包含的连接可能会有一个过期时间，通过构造方法设置或者通过updateExpiry(long, TimeUnit)设置。
+ *
+ * Pool entry可能会有一个对象，代表连接的状态（通常是security principal或者a unique token标识建立连接时使用的用户证书）。
+ */
 @Contract(threading = ThreadingBehavior.SAFE_CONDITIONAL)
 public abstract class PoolEntry<T, C> {
 

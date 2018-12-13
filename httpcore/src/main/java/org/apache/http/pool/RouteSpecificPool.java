@@ -35,6 +35,9 @@ import java.util.concurrent.Future;
 import org.apache.http.util.Args;
 import org.apache.http.util.Asserts;
 
+/**
+ * 路由专用池
+ */
 abstract class RouteSpecificPool<T, C, E extends PoolEntry<T, C>> {
 
     private final T route;

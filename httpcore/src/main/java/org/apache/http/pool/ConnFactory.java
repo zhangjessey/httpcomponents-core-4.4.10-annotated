@@ -37,6 +37,10 @@ import java.io.IOException;
  * @param <C> the connection type.
  * @since 4.2
  */
+
+/**
+ * 池化的阻塞连接的工厂
+ */
 public interface ConnFactory<T, C> {
 
     C create(T route) throws IOException;

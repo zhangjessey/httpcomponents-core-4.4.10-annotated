@@ -39,6 +39,12 @@ import java.io.Serializable;
  *
  * @since 4.2
  */
+
+/**
+ * Pool统计信息。
+ *
+ * 池中连接的总数量等于available+leased
+ */
 @Contract(threading = ThreadingBehavior.IMMUTABLE)
 public class PoolStats implements Serializable {
 

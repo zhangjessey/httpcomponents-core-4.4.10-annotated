@@ -65,6 +65,19 @@ import org.apache.http.util.Asserts;
  * @param <E> the type of the pool entry containing a pooled connection.
  * @since 4.2
  */
+
+/**
+ * 抽象同步（阻塞）连接池
+ *
+ * 注意：此类并不维护它自己的执行线程池。
+ * 因此，必须等待lease操作完成，直到lease(Object, Object, FutureCallback)返回future对象,在future对象上调用 Future#get()或者Future#get(long, TimeUnit)方法。
+ *
+ * <T> 代表池化连接对应endpoint的路由类型
+ *
+ * <C> 连接类型
+ *
+ *  <E> pool entry 包含的池化连接的类型
+ */
 @Contract(threading = ThreadingBehavior.SAFE_CONDITIONAL)
 public abstract class AbstractConnPool<T, C, E extends PoolEntry<T, C>>
                                                implements ConnPool<T, E>, ConnPoolControl<T> {

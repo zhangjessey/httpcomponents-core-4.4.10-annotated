@@ -55,6 +55,10 @@ import org.apache.http.util.Args;
  * @see HttpHost
  * @since 4.2
  */
+
+/**
+ * 一个非常基本的ConnFactory的实现，通过已知的HttpHost实例创建HttpClientConnection实例。
+ */
 @SuppressWarnings("deprecation")
 @Contract(threading = ThreadingBehavior.IMMUTABLE_CONDITIONAL)
 public class BasicConnFactory implements ConnFactory<HttpHost, HttpClientConnection> {

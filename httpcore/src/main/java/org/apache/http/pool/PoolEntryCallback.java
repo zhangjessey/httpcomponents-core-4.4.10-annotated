@@ -34,6 +34,10 @@ package org.apache.http.pool;
  * @param <C> the connection type.
  * @since 4.3
  */
+
+/**
+ * Pool entry回调接口。
+ */
 public interface PoolEntryCallback<T, C> {
 
     void process(PoolEntry<T, C> entry);
