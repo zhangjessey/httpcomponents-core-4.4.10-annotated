@@ -42,6 +42,11 @@ import java.util.concurrent.TimeoutException;
  * @param <T> the future result type of an asynchronous operation.
  * @since 4.2
  */
+
+/**
+ * Future接口的基本实现。BasicFuture可以通过下列方法存储已完成的状态。
+ * {@link #cancel()}, {@link #failed(Exception)}, or {@link #completed(Object)}
+ */
 public class BasicFuture<T> implements Future<T>, Cancellable {
 
     private final FutureCallback<T> callback;

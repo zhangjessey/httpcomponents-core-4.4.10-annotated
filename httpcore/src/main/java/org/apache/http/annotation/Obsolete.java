@@ -36,6 +36,11 @@ import java.lang.annotation.Target;
  * The field or method to which this annotation is applied is marked as implementing
  * requirements of the HTTP protocol or a related protocol that are now obsolete.
  */
+
+/**
+ * 应用此批注的字段或方法标记为实现
+ *   现在已过时的HTTP协议或相关协议的要求。
+ */
 @Documented
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.CLASS)

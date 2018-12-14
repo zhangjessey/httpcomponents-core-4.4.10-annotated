@@ -35,6 +35,10 @@ import java.lang.annotation.Target;
 /**
  * This annotation defines behavioral contract enforced at runtime by instances of annotated classes.
  */
+
+/**
+ * 此注释定义了被注释类的实例在运行时强制执行的行为契约。
+ */
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)

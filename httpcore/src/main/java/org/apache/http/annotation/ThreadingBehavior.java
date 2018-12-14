@@ -29,11 +29,19 @@ package org.apache.http.annotation;
 /**
  Defines types of threading behavior enforced at runtime.
  */
+
+/**
+ * 定义在运行时强制执行的线程行为类型。
+ */
 public enum ThreadingBehavior {
 
     /**
      * Instances of classes with the given contract are expected to be fully immutable
      * and thread-safe.
+     */
+    /**
+     * 具有给定契约的类的实例预计是完全不可变的
+     * 并且线程安全。
      */
     IMMUTABLE,
 

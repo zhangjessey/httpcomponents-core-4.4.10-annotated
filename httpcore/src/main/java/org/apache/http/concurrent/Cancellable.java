@@ -32,6 +32,10 @@ package org.apache.http.concurrent;
  *
  * @since 4.2
  */
+
+/**
+ * Cancellable接口代表可以被取消的一个过程或者一个操作。
+ */
 public interface Cancellable {
 
     boolean cancel();

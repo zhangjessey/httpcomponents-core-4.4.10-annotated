@@ -33,6 +33,10 @@ package org.apache.http.concurrent;
  * @param <T> the future result type returned by this callback.
  * @since 4.2
  */
+
+/**
+ * 一个回调接口，当J.U.C的Future完成时被调用。
+ */
 public interface FutureCallback<T> {
 
     void completed(T result);
