@@ -256,6 +256,7 @@ public abstract class AbstractConnPool<T, C, E extends PoolEntry<T, C>>
                 synchronized (this) {
                     try {
                         for (;;) {
+                            //尝试根据已知的route和state从池中获取（租借）一个连接
                             final E leasedEntry = getPoolEntryBlocking(route, state, timeout, tunit, this);
                             if (validateAfterInactivity > 0)  {
                                 if (leasedEntry.getUpdated() + validateAfterInactivity <= System.currentTimeMillis()) {
@@ -316,14 +317,18 @@ public abstract class AbstractConnPool<T, C, E extends PoolEntry<T, C>>
         if (timeout > 0) {
             deadline = new Date (System.currentTimeMillis() + tunit.toMillis(timeout));
         }
+        //加锁（可重入）
         this.lock.lock();
         try {
+            //获取到RouteSpecificPool，注意此处获取到的不是直接是connection
             final RouteSpecificPool<T, C, E> pool = getPool(route);
             E entry;
             for (;;) {
                 Asserts.check(!this.isShutDown, "Connection pool shut down");
                 for (;;) {
+                    //从RouteSpecificPool中获取PoolEntry
                     entry = pool.getFree(state);
+                    //null则跳出循环
                     if (entry == null) {
                         break;
                     }
@@ -334,6 +339,7 @@ public abstract class AbstractConnPool<T, C, E extends PoolEntry<T, C>>
                         this.available.remove(entry);
                         pool.free(entry, false);
                     } else {
+                        //还没有关闭则跳出循环
                         break;
                     }
                 }
@@ -341,12 +347,15 @@ public abstract class AbstractConnPool<T, C, E extends PoolEntry<T, C>>
                     this.available.remove(entry);
                     this.leased.add(entry);
                     onReuse(entry);
+                    //获取到返回
                     return entry;
                 }
 
                 // New connection is needed
+                //此时需要创建一个新连接
                 final int maxPerRoute = getMax(route);
                 // Shrink the pool prior to allocating a new connection
+                //为了分配新连接收缩之前的池，注意：此处使用LRU算法
                 final int excess = Math.max(0, pool.getAllocatedCount() + 1 - maxPerRoute);
                 if (excess > 0) {
                     for (int i = 0; i < excess; i++) {
@@ -359,13 +368,16 @@ public abstract class AbstractConnPool<T, C, E extends PoolEntry<T, C>>
                         pool.remove(lastUsed);
                     }
                 }
-
+                //如果RouteSpecificPool已分配的量小于每个路由的池的最大值
                 if (pool.getAllocatedCount() < maxPerRoute) {
                     final int totalUsed = this.leased.size();
                     final int freeCapacity = Math.max(this.maxTotal - totalUsed, 0);
+                    //如果还有空闲容量
                     if (freeCapacity > 0) {
                         final int totalAvailable = this.available.size();
+                        //如果有效数量大于等于空闲量
                         if (totalAvailable > freeCapacity - 1) {
+                            //如果有效量不为空，LRU
                             if (!this.available.isEmpty()) {
                                 final E lastUsed = this.available.removeLast();
                                 lastUsed.close();
@@ -373,23 +385,30 @@ public abstract class AbstractConnPool<T, C, E extends PoolEntry<T, C>>
                                 otherpool.remove(lastUsed);
                             }
                         }
+                        //创建一个新连接
                         final C conn = this.connFactory.create(route);
+                        //放入RouteSpecificPool
                         entry = pool.add(conn);
+                        //RouteSpecificPool放入池返回
                         this.leased.add(entry);
                         return entry;
                     }
                 }
-
+                //执行至此代表获取失败
                 boolean success = false;
                 try {
                     if (future.isCancelled()) {
                         throw new InterruptedException("Operation interrupted");
                     }
+                    //放入RouteSpecificPool的链表中排队
                     pool.queue(future);
+                    //放入本池的链表中排队
                     this.pending.add(future);
                     if (deadline != null) {
+                        //在指定时间内等待Condition的通知
                         success = this.condition.awaitUntil(deadline);
                     } else {
+                        //一直等待Condition的通知
                         this.condition.await();
                         success = true;
                     }
@@ -401,16 +420,19 @@ public abstract class AbstractConnPool<T, C, E extends PoolEntry<T, C>>
                     // connection pool and should now have a connection
                     // waiting for us, or else we're shutting down.
                     // Just continue in the loop, both cases are checked.
+                    //两个链表中移除
                     pool.unqueue(future);
                     this.pending.remove(future);
                 }
                 // check for spurious wakeup vs. timeout
+                //指定时间内没有等到成功通知，跳出
                 if (!success && (deadline != null && deadline.getTime() <= System.currentTimeMillis())) {
                     break;
                 }
             }
             throw new TimeoutException("Timeout waiting for connection");
         } finally {
+            //最终解锁，必定解锁
             this.lock.unlock();
         }
     }

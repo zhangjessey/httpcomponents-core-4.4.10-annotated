@@ -202,6 +202,7 @@ public class DefaultConnectionReuseStrategy implements ConnectionReuseStrategy {
         }
 
         // default since HTTP/1.1 is persistent, before it was non-persistent
+        //从HTTP/1.1开始默认重用
         return !ver.lessEquals(HttpVersion.HTTP_1_0);
     }
 
