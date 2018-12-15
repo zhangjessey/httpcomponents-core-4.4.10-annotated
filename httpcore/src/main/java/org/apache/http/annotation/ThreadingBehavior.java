@@ -50,10 +50,17 @@ public enum ThreadingBehavior {
      * dependencies injected at construction time are immutable and are expected to be thread-safe
      * if their dependencies are thread-safe.
      */
+    /**
+     * 具有给定契约的类的实例预计是不可变的,如果它们在构造时被注入的依赖是不可变的，如果它们的依赖是线程安全的，它们应该也是
+     * 线程安全的。
+     */
     IMMUTABLE_CONDITIONAL,
 
     /**
      * Instances of classes with the given contract are expected to be fully thread-safe.
+     */
+    /**
+     * 具有给定契约的类的实例预计是完全线程安全的。
      */
     SAFE,
 
@@ -61,10 +68,16 @@ public enum ThreadingBehavior {
      * Instances of classes with the given contract are expected to be thread-safe if their
      * dependencies injected at construction time are thread-safe.
      */
+    /**
+     * 具有给定契约的类的实例预计是线程安全的,如果它们在构造时被注入的依赖是线程安全的。
+     */
     SAFE_CONDITIONAL,
 
     /**
      * Instances of classes with the given contract are expected to be non thread-safe.
+     */
+    /**
+     * 具有给定契约的类的实例预计是非线程安全的。
      */
     UNSAFE
 
